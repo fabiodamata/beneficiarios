@@ -27,16 +27,25 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
             .csrf(AbstractHttpConfigurer::disable)
+            .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().authorizeRequests(auth -> auth
-                 //PERMITINDO ACESSO AO H2 E SWAGGER (PARA TESTAR MAIS FÁCIL APENAS)
-                .antMatchers("/h2/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**").permitAll()
+                    //PERMITINDO ACESSO AO H2 E SWAGGER (PARA TESTAR MAIS FÁCIL APENAS)
+                    .antMatchers("/h2/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**").permitAll()
 
-                .antMatchers(HttpMethod.GET, "/usuarios/admin").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/usuarios/user").hasRole("USER")
-                .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .anyRequest().permitAll()
+                    .antMatchers(HttpMethod.GET, "/usuarios/admin").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/usuarios/user").hasRole("USER")
+                    .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                    .antMatchers("/auth/**").permitAll()
+
+                    .antMatchers(HttpMethod.POST, "/beneficiarios").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.PUT, "/beneficiarios").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/beneficiarios").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.POST, "/documentos").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.PUT, "/documentos").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/documentos").hasRole("ADMIN")
+
+                    .anyRequest().permitAll()
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
             .build();

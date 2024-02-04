@@ -64,7 +64,7 @@ public class AutenticacaoServiceImpl implements AutenticacaoService {
 
     private Instant geraDataExpiracao() {
         return LocalDateTime.now()
-                .plusHours(8)
+                .plusHours(1) //UMA HORAS PARA EXPIRAR O TOKEN
                 .toInstant(ZoneOffset.of("-03:00")); //HORÁRIO DE BRASILIA
     }
 }
