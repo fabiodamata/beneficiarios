@@ -22,8 +22,6 @@ Observaçoes:
 - Ele foi criado para permitir apenas duas roles ADMIN E USER, onde a role admin terá acesso a todas as funcionalidades da aplicação.
 - Esta aplicação foi criada para atender os requisitos exigidos no teste em questão.
 
-
-============================================================
 API de criação e usuários:
 http://localhost:8080/usuarios (post)
 Json:
@@ -40,7 +38,6 @@ Json:
     "senha": "123",
     "role": "USER"
 }
-============================================================
 
 API para requisição do token:
 http://localhost:8080/auth (post)
